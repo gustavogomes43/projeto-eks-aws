@@ -1,55 +1,43 @@
 # ☁️ AWS Cloud & Infrastructure Portfolio - Gustavo Gomes
 
-Repositório focado em **Infraestrutura como Código (IaC)** e **Sustentação de Ambientes Críticos** na AWS. Aqui documento a transição de serviços legados para arquiteturas modernas, escaláveis e com foco em otimização financeira.
+Repositório focado em **Infraestrutura como Código (IaC)** e **Sustentação de Ambientes Críticos** na AWS.
 
 ---
 
 ## 🦂 Projeto Scorpion (Mission Critical EKS Cluster)
 
-Este projeto representa a modernização de uma infraestrutura legada para um modelo de containers orquestrados. Foquei em criar um ambiente resiliente, seguro e com custos otimizados.
+Este projeto demonstra o provisionamento completo de um cluster Kubernetes (EKS) utilizando Terraform, com foco em alta disponibilidade e segurança.
 
 ### 🛠️ Tecnologias e Ferramentas
 | Ícone | Ferramenta | Descrição |
 | :---: | :---: | :--- |
-| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="35"> | **AWS EKS** | Orquestração de containers com plano de controle gerenciado. |
-| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" width="35"> | **Terraform** | Provisionamento de infraestrutura imutável e versionada (VPC, IAM, EKS). |
-| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" width="35"> | **Kubectl** | Gerenciamento e inspeção dos nós e workloads do cluster via CLI. |
-| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" width="35"> | **Linux Bash** | Automação de scripts de configuração, instalação de ferramentas e troubleshooting. |
+| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="35"> | **AWS EKS** | Orquestração de containers gerenciada. |
+| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" width="35"> | **Terraform** | IaC para provisionamento de VPC, IAM e Clusters. |
 
-### 🚀 Desafios e Visão de Engenharia
-* **Infraestrutura como Código (IaC):** Todo o ambiente (Rede, Segurança, Computação) é replicável e versionado.
-* **Troubleshooting Multi-AZ:** Identifiquei e corrigi a falha de registro dos Worker Nodes que estavam isolados em subnets privadas. 
-* **FinOps na Prática:** Readequei a arquitetura de rede para subnets públicas com **Security Groups extremamente restritivos**, eliminando o custo fixo elevado de um NAT Gateway em ambiente de laboratório, mantendo a segurança e o custo zero de tráfego.
+### 📸 Galeria de Implementação (Passo a Passo)
 
-### 📸 Evidências do Sucesso
-> **Status dos Nós Operacionais:**
-> <img src="https://raw.githubusercontent.com/gustavogomes43/meu-portfolio-aws/main/img/image_c7f3c2.png" alt="Kubectl Nodes Status" width="100%">
-> *Nós operacionais e com status 'Ready' em zona de disponibilidade us-east-1, confirmando o sucesso do provisionamento.*
+#### 🔹 Fase 1: Infraestrutura e VPC
+Nesta etapa, a VPC e as subnets foram desenhadas para suportar o tráfego do cluster.
+* **Planejamento da Rede:** ![VPC Plan](img/1.png)
+* **Provisionamento de Recursos:** ![Terraform Apply](img/2.png)
+* **Mapa de Recursos da VPC:** ![Resource Map](img/14.png)
+
+#### 🔹 Fase 2: Provisionamento do Cluster EKS
+Execução do Terraform para criação do Control Plane e instâncias Worker.
+* **Criação do Cluster em Progresso:** ![EKS Creating](img/3.png)
+* **Finalização do Provisionamento (8m24s):** ![EKS Done](img/4.png)
+
+#### 🔹 Fase 3: Gerenciamento de Nodes e Instâncias
+Validação dos grupos de nós e tipos de instâncias utilizadas (t3.micro).
+* **Node Groups Ativos:** ![Node Groups](img/12.png)
+* **Detalhes da Instância EC2:** ![EC2 Details](img/13.png)
+
+*(Nota: Adicione as outras imagens conforme sua preferência de organização seguindo o padrão acima).*
 
 ---
 
 ## 🎵 Projeto Aria.net (S3 Static Hosting)
-
-Desenvolvimento de uma arquitetura **Serverless** para hospedagem de sites estáticos, focada em performance e custo próximo de zero.
-
-### 🛠️ Tecnologias e Ferramentas
-| Ícone | Ferramenta | Descrição |
-| :---: | :---: | :--- |
-| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="35"> | **Amazon S3** | Armazenamento de objetos configurado para Static Website Hosting. |
-| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" width="35"> | **Terraform** | Automação do bucket, políticas de acesso e gerenciamento de Public Access Blocks. |
-
-### 🚀 Diferenciais e Sustentabilidade
-* **Escalabilidade Infinita:** Solução baseada em S3 que suporta picos de tráfego sem gerenciamento de instâncias.
-* **Segurança de Dados:** Implementação de políticas de acesso granular via código (Bucket Policy).
-* **Custo-Eficiência:** Implementação focada em manter o cliente dentro dos limites gratuitos (Free Tier) da AWS.
-
----
-
-## 📊 Resultados Consolidados
-
-* **Agilidade:** Deploy de infraestrutura complexa (VPC + EKS) em menos de 15 minutos via IaC.
-* **Confiabilidade:** Redução de erros humanos através da eliminação de configurações manuais via Console.
-* **Conformidade:** Ambiente 100% versionado e seguindo o Principle of Least Privilege (Menor Privilégio) nas IAM Roles.
+Hospedagem serverless de alta performance.
 
 ---
 *Este portfólio demonstra resiliência técnica e foco na sustentação de ambientes críticos.*
