@@ -10,13 +10,13 @@ Este repositório detalha a implementação de uma infraestrutura escalável par
 Hospedar uma aplicação crítica que exige **auto-healing** e escalabilidade horizontal. Uma solução baseada em instâncias simples não seria capaz de gerenciar o ciclo de vida dos containers de forma eficiente.
 
 ### 🟢 A Solução
-Implementação de um cluster gerenciado **AWS EKS**. A arquitetura utiliza **Nodes** distribuídos em múltiplas zonas de disponibilidade (Multi-AZ).
+Implementação de um cluster gerenciado **AWS EKS**. A arquitetura utiliza **Nodes** distribuídos em múltiplas zonas de disponibilidade (Multi-AZ), garantindo resiliência total.
 
 ---
 
 ## 🛠️ Stack Tecnológica & Engenharia de Containers
 
-| Ferramenta | Ícone | Justificativa Técnica |
+| Ferramenta | Ícone | Justivicativa Técnica |
 | :--- | :---: | :--- |
 | **Kubernetes** | <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" width="45"> | Orquestração de containers e gerenciamento de ReplicaSets. |
 | **AWS EKS** | <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="45"> | Plano de controle gerenciado de alta disponibilidade. |
