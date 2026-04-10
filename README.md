@@ -32,7 +32,6 @@ Validação dos grupos de nós e tipos de instâncias utilizadas (t3.micro).
 * **Node Groups Ativos:** ![Node Groups](img/12.png)
 * **Detalhes da Instância EC2:** ![EC2 Details](img/13.png)
 
-*(Nota: Adicione as outras imagens conforme sua preferência de organização seguindo o padrão acima).*
 
 ---
 
