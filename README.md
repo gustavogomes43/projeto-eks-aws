@@ -7,10 +7,10 @@ Este repositório detalha a implementação de uma infraestrutura escalável par
 ## 🚀 Contexto do Projeto & Arquitetura
 
 ### 🔴 O Desafio
-Hospedar uma aplicação crítica que exige **auto-healing** (auto-recuperação) e escalabilidade horizontal. Uma solução baseada em instâncias simples não seria capaz de gerenciar o ciclo de vida dos containers de forma eficiente.
+Hospedar uma aplicação crítica que exige **auto-healing** e escalabilidade horizontal. Uma solução baseada em instâncias simples não seria capaz de gerenciar o ciclo de vida dos containers de forma eficiente.
 
 ### 🟢 A Solução
-Implementação de um cluster gerenciado **AWS EKS**. A arquitetura utiliza **Nodes** distribuídos em múltiplas zonas de disponibilidade (Multi-AZ), garantindo que a aplicação Scorpion permaneça online mesmo em caso de falha de um datacenter.
+Implementação de um cluster gerenciado **AWS EKS**. A arquitetura utiliza **Nodes** distribuídos em múltiplas zonas de disponibilidade (Multi-AZ).
 
 ---
 
@@ -28,25 +28,25 @@ Implementação de um cluster gerenciado **AWS EKS**. A arquitetura utiliza **No
 
 ### 🔹 Infraestrutura como Serviço (EKS Cluster)
 *Provisionamento do cluster e validação dos Worker Nodes.*
-![EKS Setup](img/EKS%20III.png)
+<img src="img/EKS%20III.png" width="100%">
 
 ---
 
 ### 🔹 Orquestração e Deploy de Workloads
 *Gerenciamento de pods e deploy da aplicação via kubectl.*
-![Kubectl Deploy](img/EKS%20VI.png)
+<img src="img/EKS%20VI.png" width="100%">
 
 ---
 
 ### 🔹 Escalabilidade e Saúde do Cluster
 *Monitoramento da distribuição de carga entre os nós do cluster.*
-![EKS Nodes](img/EKS%20IX.png)
+<img src="img/EKS%20IX.png" width="100%">
 
 ---
 
 ### 🔹 Aplicação Scorpion em Produção
 *O resultado final: aplicação orquestrada e acessível globalmente.*
-![Scorpion Live](img/image_4a3f28.png.png)
+<img src="img/image_4a3f28.png.png" width="100%">
 
 ---
 
