@@ -15,7 +15,7 @@ Diferente de uma instalação simples e monolítica, o **Projeto Scorpion** foi 
 
 Abaixo, apresento a orquestração de rede e compute desenhada para este cluster:
 
-%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#232F3E', 'edgeLabelBackground':'#ffffff', 'tertiaryColor': '#ffffff', 'primaryTextColor': '#ffffff', 'lineColor': '#879196'}}}%%
+%%{init: ...mermaid {'theme': 'base', 'themeVariables': { 'primaryColor': '#232F3E', 'edgeLabelBackground':'#ffffff', 'tertiaryColor': '#ffffff', 'primaryTextColor': '#ffffff', 'lineColor': '#879196'}}}%%
 graph TD
     %% Título Principal do Diagrama
     subgraph Scorpion_Architecture [🎵 Projeto Scorpion: Arquitetura de Engenharia EKS]
@@ -86,7 +86,7 @@ graph TD
     class EKS_API,ETCD,Sched,CtrlMgr,IAM aws_purple;
     class K8s_SVC,K8s_Deploy,Pod_1,Pod_2 k8s_blue;
     class Internet internet_gray;
-    class Scorpion_Architecture,Layer_1,Layer_2,Layer_3,Layer_4 white_box;
+    class Scorpion_Architecture,Layer_1,Layer_2,Layer_3,Layer_4 white_box;...
 
 ---
 
