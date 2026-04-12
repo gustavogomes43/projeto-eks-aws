@@ -15,7 +15,7 @@ Diferente de uma instalação simples e monolítica, o **Projeto Scorpion** foi 
 
 Abaixo, apresento a orquestração de rede e compute desenhada para este cluster:
 
-%%{init: ...mermaid {'theme': 'base', 'themeVariables': { 'primaryColor': '#232F3E', 'edgeLabelBackground':'#ffffff', 'tertiaryColor': '#ffffff', 'primaryTextColor': '#ffffff', 'lineColor': '#879196'}}}%%
+%%{init: ... mermaid {'theme': 'base', 'themeVariables': { 'primaryColor': '#232F3E', 'edgeLabelBackground':'#ffffff', 'tertiaryColor': '#ffffff', 'primaryTextColor': '#ffffff', 'lineColor': '#879196'}}}%%
 graph TD
     %% Título Principal do Diagrama
     subgraph Scorpion_Architecture [🎵 Projeto Scorpion: Arquitetura de Engenharia EKS]
