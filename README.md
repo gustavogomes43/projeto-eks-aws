@@ -15,7 +15,78 @@ Diferente de uma instalação simples e monolítica, o **Projeto Scorpion** foi 
 
 Abaixo, apresento a orquestração de rede e compute desenhada para este cluster:
 
-![Arquitetura EKS Scorpion](img/arquitetura-scorpion.png)
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#232F3E', 'edgeLabelBackground':'#ffffff', 'tertiaryColor': '#ffffff', 'primaryTextColor': '#ffffff', 'lineColor': '#879196'}}}%%
+graph TD
+    %% Título Principal do Diagrama
+    subgraph Scorpion_Architecture [🎵 Projeto Scorpion: Arquitetura de Engenharia EKS]
+        direction TB
+
+        %% Camada 1: Entrada e Rede (Estilo AWS Laranja)
+        subgraph Layer_1 [Camada 1: Entrada e Segurança]
+            direction LR
+            Internet((Internet)) --> WAF[<img src='https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v18.0/dist/SecurityIdentityCompliance/WAF.png' width='40'/><br/>AWS WAF]
+            WAF --> ALB[<img src='https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v18.0/dist/NetworkingContentDelivery/ElasticLoadBalancing.png' width='40'/><br/>Application Load Balancer]
+            IAM[<img src='https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v18.0/dist/SecurityIdentityCompliance/IdentityAccessManagement.png' width='40'/><br/>IAM & RBAC] -.-> EKS_API
+        end
+
+        %% Camada 2: Control Plane (Estilo AWS Roxo)
+        subgraph Layer_2 [Camada 2: AWS EKS Control Plane (HA)]
+            direction TB
+            EKS_API[<img src='https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v18.0/dist/Containers/ElasticKubernetesService.png' width='40'/><br/>EKS API Server]
+            ETCD[<img src='https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png' width='30'/><br/>etcd (HA Datastore)]
+            Sched[Scheduler]
+            CtrlMgr[Controller Manager]
+            EKS_API --- ETCD
+            EKS_API --- Sched
+            EKS_API --- CtrlMgr
+        end
+
+        %% Camada 3: Data Plane (Estilo AWS Laranja EC2)
+        subgraph Layer_3 [Camada 3: Data Plane (Managed Node Groups)]
+            direction LR
+            subgraph Node_AZ1 [AZ 1]
+                EC2_1[<img src='https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v18.0/dist/Compute/AmazonEC2.png' width='40'/><br/>EC2 Worker Node]
+            end
+            subgraph Node_AZ2 [AZ 2]
+                EC2_2[<img src='https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v18.0/dist/Compute/AmazonEC2.png' width='40'/><br/>EC2 Worker Node]
+            end
+        end
+
+        %% Camada 4: Workloads Kubernetes (Estilo K8s Azul)
+        subgraph Layer_4 [Camada 4: Orquestração e Workloads (Kubernetes)]
+            direction TB
+            K8s_SVC[<img src='https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png' width='30'/><br/>K8s Service (ClusterIP)]
+            K8s_Deploy[<img src='https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png' width='30'/><br/>K8s Deployment]
+            subgraph Scorpion_Pods [Scorpion Microservices]
+                Pod_1((<img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg' width='25'/><br/>Scorpion Pod))
+                Pod_2((<img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg' width='25'/><br/>Scorpion Pod))
+            end
+            K8s_SVC --> K8s_Deploy
+            K8s_Deploy --> Scorpion_Pods
+        end
+
+        %% Fluxos de Comunicação
+        ALB ==> K8s_SVC
+        EKS_API ==> Layer_3
+        Layer_3 ==> Layer_4
+        
+        %% Componentes de Rede CNI
+        CNI[<img src='https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v18.0/dist/NetworkingContentDelivery/VPC.png' width='35'/><br/>AWS VPC CNI] -.-> Layer_3
+        IAM -.-> Layer_4
+    end
+
+    %% Estilização para brilhar os olhos (Cores AWS e K8s)
+    classDef aws_orange fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:white;
+    classDef aws_purple fill:#C851BD,stroke:#232F3E,stroke-width:2px,color:white;
+    classDef k8s_blue fill:#326CE5,stroke:#232F3E,stroke-width:2px,color:white;
+    classDef internet_gray fill:#879196,stroke:#232F3E,stroke-width:2px,color:white;
+    classDef white_box fill:#ffffff,stroke:#232F3E,stroke-width:1px,color:#232F3E;
+
+    class ALB,WAF,Node_AZ1,Node_AZ2,EC2_1,EC2_2 aws_orange;
+    class EKS_API,ETCD,Sched,CtrlMgr,IAM aws_purple;
+    class K8s_SVC,K8s_Deploy,Pod_1,Pod_2 k8s_blue;
+    class Internet internet_gray;
+    class Scorpion_Architecture,Layer_1,Layer_2,Layer_3,Layer_4 white_box;
 
 ---
 
