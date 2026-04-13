@@ -51,13 +51,20 @@ Validação do estado dos Nodes e Pods para garantir que o cluster responda corr
 
 ## 🧠 Desafios Técnicos e Soluções (Troubleshooting)
 
-**1. Ajuste de Contexto e Autenticação (RBAC):**
-* **Desafio:** Configurar o `aws-auth` ConfigMap para permitir que diferentes usuários IAM tivessem permissões granulares dentro do cluster.
-* **Solução:** Mapeamento correto de Roles IAM para Grupos do Kubernetes, garantindo segurança no acesso administrativo.
+*Desafios Técnicos e Soluções (Troubleshooting)
+1. Conectividade e Registro de Nós (Multi-AZ Networking):
 
-**2. Persistência e Ciclo de Vida:**
-* **Desafio:** Garantir que a aplicação Scorpion mantivesse a consistência durante os rolling updates.
-* **Solução:** Configuração de *Readiness* e *Liveness Probes*, evitando que o tráfego fosse direcionado a containers que ainda não estavam prontos para processar requisições.
+Dificuldade Encontrada: Ao provisionar a infraestrutura via Terraform, os nós do EKS (Node Groups) não conseguiam se registrar no Control Plane. O diagrama aponta o erro "Nó não registra (Multi-AZ Rede)", indicando que, embora as subnets estivessem configuradas, havia um bloqueio no fluxo de comunicação entre a VPC e o cluster EKS.
+
+Raciocínio e Solução: O problema residia na segregação de rede. Para otimizar custos (FinOps) e evitar o uso excessivo de NAT Gateways, foi necessário ajustar o posicionamento dos nós. A solução foi mover os nós para a Subnet Pública com um Security Group (SG) Restritivo. Isso permitiu que os nós alcançassem os endpoints do EKS sem a necessidade de infraestrutura de saída cara, mantendo a segurança através de regras de firewall rigorosas.
+
+2. Segurança e Validação de Post-Install (Least Privilege):
+3. 
+Dificuldade Encontrada: Garantir que a exposição dos nós em subnets públicas não comprometesse a segurança do "Scorpion Project". Era necessário validar se os nós estavam operacionais (Ready) sem abrir brechas excessivas no ambiente.
+
+Raciocínio e Solução: Implementei uma camada de Segurança Restritiva (SG Restritivo) e políticas de Least Privilege IAM Roles. Em vez de permitir todo o tráfego, o Security Group foi configurado com regras de entrada (Inbound Rules) específicas para os IPs internos (10.0.0.x).
+
+Validação Final: O sucesso da estratégia foi confirmado via CLI com o comando kubectl get nodes, resultando no status READY, o que prova que o nó está seguro, autenticado e com a comunicação devidamente estabelecida com o Control Plane.
 
 ---
 
